@@ -4,9 +4,8 @@ package Day1;
 //
 // Главная идея дня: поля класса делаем private (закрытыми). Снаружи к ним
 // нельзя обратиться напрямую. Работать с данными объекта можно только через
-// его методы: конструктор задаёт начальное состояние, геттеры дают прочитать,
-// сеттеры разрешают изменить — и только там, где изменение реально нужно,
-// причём с проверкой данных внутри самого класса.
+// его методы: конструктор задаёт начальное состояние, сеттеры разрешают
+// изменить (с проверкой), геттеры дают прочитать.
 
 public class Day1Kwest1 {
     public static void main(String[] args) {
@@ -56,6 +55,15 @@ class Student {
         setAge(age);
     }
 
+    // Сеттер — "разрешить изменить": принимает новое значение,
+    // но записывает его только если данные корректны.
+    public void setAge(int age) {
+        // Возраст не может быть отрицательным — плохой ввод отсекаем.
+        if (age >= 0) {
+            this.age = age;
+        }
+    }
+
     // Геттер — "дать доступ": позволяет только ПРОЧИТАТЬ имя.
     // Сеттера для name нет специально: имя задаётся при создании и не меняется.
     public String getName() {
@@ -64,15 +72,6 @@ class Student {
 
     public int getAge() {
         return age;
-    }
-
-    // Сеттер — "разрешить изменить": принимает новое значение,
-    // но записывает его только если данные корректны.
-    public void setAge(int age) {
-        // Возраст не может быть отрицательным — плохой ввод отсекаем.
-        if (age >= 0) {
-            this.age = age;
-        }
     }
 }
 
@@ -85,19 +84,19 @@ class Product {
         setPrice(price);
     }
 
+    // Цена не может быть отрицательной.
+    public void setPrice(int price) {
+        if (price >= 0) {
+            this.price = price;
+        }
+    }
+
     public String getName() {
         return name;
     }
 
     public int getPrice() {
         return price;
-    }
-
-    // Цена не может быть отрицательной.
-    public void setPrice(int price) {
-        if (price >= 0) {
-            this.price = price;
-        }
     }
 }
 
@@ -106,12 +105,18 @@ class Book {
     private String author;
     private int pages;
 
-    // Автор задаётся напрямую (проверять нечего), а название и страницы —
-    // через сеттеры с проверкой.
+    // У книги название и число страниц после создания не меняются, поэтому
+    // публичных сеттеров нет — проверка стоит прямо в конструкторе.
     public Book(String title, String author, int pages) {
         this.author = author;
-        setTitle(title);
-        setPages(pages);
+        // Название не должно быть пустым.
+        if (!title.isEmpty()) {
+            this.title = title;
+        }
+        // Число страниц должно быть больше нуля.
+        if (pages > 0) {
+            this.pages = pages;
+        }
     }
 
     public String getTitle() {
@@ -124,20 +129,6 @@ class Book {
 
     public int getPages() {
         return pages;
-    }
-
-    // Название не должно быть пустым.
-    public void setTitle(String title) {
-        if (!title.isEmpty()) {
-            this.title = title;
-        }
-    }
-
-    // Число страниц должно быть больше нуля.
-    public void setPages(int pages) {
-        if (pages > 0) {
-            this.pages = pages;
-        }
     }
 }
 
@@ -152,6 +143,18 @@ class Task {
         this.isDone = isDone;
     }
 
+    // Приоритет допустим только от 1 до 5.
+    public void setPriority(int priority) {
+        if (priority >= 1 && priority <= 5) {
+            this.priority = priority;
+        }
+    }
+
+    // Статус выполнения реально меняется по ходу работы, поэтому сеттер нужен.
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -163,17 +166,5 @@ class Task {
     // Для boolean-поля геттер по соглашению называют isЧто-то, а не getЧто-то.
     public boolean isDone() {
         return isDone;
-    }
-
-    // Приоритет допустим только от 1 до 5.
-    public void setPriority(int priority) {
-        if (priority >= 1 && priority <= 5) {
-            this.priority = priority;
-        }
-    }
-
-    // Статус выполнения реально меняется по ходу работы, поэтому сеттер нужен.
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
     }
 }
