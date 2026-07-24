@@ -64,7 +64,7 @@ class Product {
     }
 
     public void setPrice(int price) {
-        if (price > 0) {
+        if (price >= 0) {
             this.price = price;
         } else {
             System.out.println("Ошибка: цена не может быть отрицательной");
@@ -126,6 +126,8 @@ class Task {
     public void setPriority(int priority) {
         if (priority >= 1 && priority <= 5) {
             this.priority = priority;
+        } else {
+            System.out.println("Ошибка: приоритет должен быть от 1 до 5");
         }
     }
 
