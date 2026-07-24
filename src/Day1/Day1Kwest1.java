@@ -38,8 +38,10 @@ class Student {
     }
 
     public void setAge(int age) {
-        if (age >= 0) {
+        if (age > 0) {
             this.age = age;
+        } else  {
+            System.out.println("Ошибка: возраст введен не корректно");
         }
     }
 
@@ -62,8 +64,10 @@ class Product {
     }
 
     public void setPrice(int price) {
-        if (price >= 0) {
+        if (price > 0) {
             this.price = price;
+        } else {
+            System.out.println("Ошибка: цена не может быть отрицательной");
         }
     }
 
@@ -85,9 +89,13 @@ class Book {
         this.author = author;
         if (!title.isEmpty()) {
             this.title = title;
+        } else {
+            System.out.println("Ошибка: введите название книги");
         }
         if (pages > 0) {
             this.pages = pages;
+        } else {
+            System.out.println("Ошибка: введите количество страниц");
         }
     }
 
