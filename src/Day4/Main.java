@@ -121,15 +121,19 @@ public class Main {
         }
         System.out.print("Новый статус (1 - запланирована, 2 - читаю, 3 - прочитана): ");
         int s = readInt(scanner);
-        if (s == 1) {
-            books.get(index).setStatus(BookStatus.PLANNED);
-        } else if (s == 2) {
-            books.get(index).setStatus(BookStatus.READING);
-        } else if (s == 3) {
-            books.get(index).setStatus(BookStatus.FINISHED);
-        } else {
-            System.out.println("Нет такого статуса");
-            return;
+        switch (s) {
+            case 1:
+                books.get(index).setStatus(BookStatus.PLANNED);
+                break;
+            case 2:
+                books.get(index).setStatus(BookStatus.READING);
+                break;
+            case 3:
+                books.get(index).setStatus(BookStatus.FINISHED);
+                break;
+            default:
+                System.out.println("Нет такого статуса");
+                return;
         }
         System.out.println("Статус изменён");
     }
